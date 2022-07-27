@@ -23,19 +23,21 @@ model User {
 }
 
 model Post {
-  id      Int       @id @unique @default(autoincrement())
-  userId  Int
-  user    User      @relation("createdPosts", fields: [userId], references: [id])
-  link    String
-  caption String?
-  Comment Comment[] @relation("commentUnderPosts")
+  id        Int       @id @unique @default(autoincrement())
+  userId    Int
+  user      User      @relation("createdPosts", fields: [userId], references: [id])
+  link      String
+  caption   String?
+  createdAt DateTime  @default(now())
+  Comment   Comment[] @relation("commentUnderPosts")
 }
 
 model Comment {
-  id      Int    @id @unique @default(autoincrement())
-  userId  Int
-  postId  Int
-  user    User   @relation("commentedPosts", fields: [userId], references: [id])
-  post    Post   @relation("commentUnderPosts", fields: [postId], references: [id])
-  comment String
+  id        Int      @id @unique @default(autoincrement())
+  userId    Int
+  postId    Int
+  user      User     @relation("commentedPosts", fields: [userId], references: [id])
+  post      Post     @relation("commentUnderPosts", fields: [postId], references: [id])
+  comment   String
+  createdAt DateTime @default(now())
 }
