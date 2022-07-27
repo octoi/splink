@@ -12,7 +12,7 @@ export const getUserFromDatabase = ({
   id?: number;
 }) => {
   return new Promise((resolve, reject) => {
-    if (!username || !id) {
+    if (!username && !id) {
       reject('username or user id must be provided');
       return;
     }
@@ -58,5 +58,21 @@ export const registerUser = (data: {
         }
         reject('Failed to register user');
       });
+  });
+};
+
+// Find user with the given username & check if the password matches
+export const loginUser = (data: { username: string; password: string }) => {
+  return new Promise(async (resolve, reject) => {
+    const user: any = await getUserFromDatabase({
+      username: data.username,
+    }).catch(reject);
+    if (!user) return;
+
+    bcrypt.compare(data.password, user.password, (err, res) => {
+      if (err) return reject('Failed to validate password');
+      if (!res) return reject('Invalid password');
+      resolve(user);
+    });
   });
 };
