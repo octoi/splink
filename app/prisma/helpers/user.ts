@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prismaClient = new PrismaClient();
 
 // Get user data with username or user id
-export const getUserFromDatabase = ({
+export const findUser = ({
   username,
   id,
 }: {
@@ -64,7 +64,7 @@ export const registerUser = (data: {
 // Find user with the given username & check if the password matches
 export const loginUser = (data: { username: string; password: string }) => {
   return new Promise(async (resolve, reject) => {
-    const user: any = await getUserFromDatabase({
+    const user: any = await findUser({
       username: data.username,
     }).catch(reject);
     if (!user) return;
@@ -74,5 +74,44 @@ export const loginUser = (data: { username: string; password: string }) => {
       if (!res) return reject('Invalid password');
       resolve(user);
     });
+  });
+};
+
+// Get user data from database & update the changed fields
+export const updateUser = (
+  userId: number,
+  data: {
+    id?: number;
+    username?: string;
+    name?: string;
+    password?: string;
+    profile?: string;
+    banner?: string;
+    socials?: string;
+  }
+) => {
+  return new Promise(async (resolve, reject) => {
+    const user: any = await findUser({ id: userId }).catch(reject);
+    if (!user) return;
+
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+
+    // There is a chance that someone can change the user id, which should not be changed
+    if (data.id) {
+      delete data.id;
+    }
+
+    prismaClient.user
+      .update({
+        where: { id: userId },
+        data,
+      })
+      .then(resolve)
+      .catch((err) => {
+        console.log(err);
+        reject('Failed to update user');
+      });
   });
 };
