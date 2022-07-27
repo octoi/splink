@@ -2,6 +2,11 @@
   "name": "app",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "fadhilsaheer",
+    "url": "https://fadhilsaheer.github.io"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
