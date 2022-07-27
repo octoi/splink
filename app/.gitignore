@@ -36,3 +36,9 @@ yarn-error.log*
 
 # lock files
 *.lock
+
+# env
+*.env
+
+# migrations
+migrations
