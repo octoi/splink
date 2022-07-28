@@ -9,9 +9,9 @@ export const findComment = (id: number) => {
       .findUnique({
         where: { id },
         include: {
-          user: {
+          post: {
             select: {
-              id: true,
+              userId: true,
             },
           },
         },
@@ -32,5 +32,23 @@ export const addNewComment = (data: {
 }) => {
   return new Promise((resolve, reject) => {
     prismaClient.comment.create({ data }).then(resolve).catch(reject);
+  });
+};
+
+// authorize & delete comment
+export const deleteComment = (data: { userId: number; commentId: number }) => {
+  return new Promise(async (resolve, reject) => {
+    let comment: any = await findComment(data.commentId).catch(reject);
+    if (!comment) return;
+
+    // comment author & post author have permission to delete a comment
+    if (data.userId == comment.userId || data.userId == comment.post.userId) {
+      prismaClient.comment
+        .delete({ where: { id: data.commentId } })
+        .then(resolve)
+        .catch(reject);
+    } else {
+      reject('Permission denied');
+    }
   });
 };

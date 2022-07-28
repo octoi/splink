@@ -60,7 +60,8 @@ export const deletePost = (data: { userId: number; postId: number }) => {
     let post: any = await findPost(data.postId).catch(reject);
     if (!post) return;
 
-    if (post.user.id == data.userId) {
+    // check if logged in user is the post author
+    if (post.userId == data.userId) {
       prismaClient.post
         .delete({ where: { id: data.postId } })
         .then(resolve)
