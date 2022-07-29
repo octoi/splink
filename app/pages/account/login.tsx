@@ -1,16 +1,16 @@
 import type { NextPage } from 'next';
 import { Layout } from '@/components/Layout';
-import { RegisterForm } from '@/components/account/RegisterForm';
 import { Container } from '@chakra-ui/react';
+import { LoginForm } from '@/components/account/LoginForm';
 
-const RegisterPage: NextPage = () => {
+const LoginPage: NextPage = () => {
   return (
-    <Layout title='Register'>
+    <Layout title='Login'>
       <Container mt={100} centerContent maxW='container.sm'>
-        <RegisterForm />
+        <LoginForm />
       </Container>
     </Layout>
   );
 };
 
-export default RegisterPage;
+export default LoginPage;
