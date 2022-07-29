@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import { ReactComponent } from '@/utils/reactTypes';
+import { Header } from './header';
 
 interface Props {
   title?: string;
@@ -31,6 +32,7 @@ export const Layout: ReactComponent<Props> = ({
         <meta property='og:image' content={banner ? banner : image} />
         <meta property='og:type' content='website' />
       </Head>
+      <Header />
       {children}
     </>
   );
