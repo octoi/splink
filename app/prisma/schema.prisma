@@ -17,6 +17,7 @@ model User {
   profile  String
   password String
   banner   String?
+  bio      String?
   socials  String?
   Post     Post[]    @relation("createdPosts")
   Comment  Comment[] @relation("commentedPosts")
