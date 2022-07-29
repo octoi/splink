@@ -22,10 +22,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       `https://avatars.dicebear.com/api/identicon/${requestBody.name}.svg`
     ),
   })
-    .then((userData) => {
-      res.status(200).json({ token: generateToken(userData) });
+    .then((userData: any) => {
+      userData.token = generateToken(userData);
+      res.status(200).json(userData);
     })
     .catch((err) => {
-      res.status(409).json({ message: err });
+      res.status(201).json({ message: err });
     });
 }

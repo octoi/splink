@@ -86,6 +86,7 @@ export const updateUser = (
     name?: string;
     password?: string;
     profile?: string;
+    bio?: string;
     banner?: string;
     socials?: string;
   }
