@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 import { NextApiRequest } from 'next';
 
 const jwtKey = process.env.JWT_KEY || 'n3v3r g0nn4 g1v3 y0u up'; // ! Please don't use this for production
@@ -36,4 +37,15 @@ export const getTokenFromRequestHeader = (req: NextApiRequest) => {
 
     resolve(token);
   });
+};
+
+// get user data from jwt token
+export const getUserFromToken = (token: string): Boolean | any => {
+  const decodedData: any = jwtDecode(token);
+
+  if (decodedData?.exp * 1000 < Date.now()) {
+    return false;
+  }
+
+  return decodedData;
 };
