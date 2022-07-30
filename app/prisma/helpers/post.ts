@@ -18,6 +18,9 @@ export const findPost = (id: number) => {
             },
           },
           Comment: {
+            orderBy: {
+              createdAt: 'desc',
+            },
             select: {
               id: true,
               postId: true,

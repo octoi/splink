@@ -5,10 +5,12 @@ import { PostType } from '@/utils/types';
 import { PostContent } from '@/components/post';
 
 interface Props {
-  post: PostType;
+  postJson: string;
 }
 
-const PostPage: NextPage<Props> = ({ post }) => {
+const PostPage: NextPage<Props> = ({ postJson }) => {
+  let post: PostType = JSON.parse(postJson);
+
   return (
     <Layout description={post.caption}>
       <PostContent post={post} />
@@ -26,10 +28,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   if (post) {
     return {
       props: {
-        post: {
-          ...post,
-          createdAt: post.createdAt.toString(),
-        },
+        postJson: JSON.stringify(post),
       },
     };
   }
