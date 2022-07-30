@@ -69,7 +69,6 @@ export const SettingsForm: React.FC<Props> = ({ userData }) => {
             position: 'top-right',
           });
         } else {
-          console.log(res.data?.message);
           toast({
             title: `${res.data?.message}`,
             description: 'Failed to update profile',

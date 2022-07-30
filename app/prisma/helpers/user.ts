@@ -111,7 +111,6 @@ export const updateUser = (
       })
       .then(resolve)
       .catch((err) => {
-        console.log(err);
         reject('Failed to update user');
       });
   });

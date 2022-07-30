@@ -58,8 +58,6 @@ export const UploadImage: React.FC<Props> = ({
         onClose();
       })
       .catch((err) => {
-        console.log(err);
-
         toast({
           title: 'Failed to upload image',
           description: err?.message || '',
