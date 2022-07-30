@@ -26,13 +26,19 @@ import {
   useDisclosure,
   useToast,
 } from '@chakra-ui/react';
+import { Paths } from '@/utils/paths';
 
 interface Props {
   post: PostType;
   displayDeleteButton?: boolean;
+  redirect?: boolean;
 }
 
-export const PostDisplay: React.FC<Props> = ({ post, displayDeleteButton }) => {
+export const PostDisplay: React.FC<Props> = ({
+  post,
+  displayDeleteButton,
+  redirect,
+}) => {
   const toast = useToast();
   const router = useRouter();
 
@@ -103,30 +109,43 @@ export const PostDisplay: React.FC<Props> = ({ post, displayDeleteButton }) => {
     <>
       <Flex
         direction='column'
-        className='w-full p-5 border-2 border-dashed'
+        className={`w-full p-5 border-2 border-dashed ${
+          redirect && 'cursor-pointer'
+        }`}
+        onClick={() => {
+          if (!redirect) return;
+          router.push(`${Paths.post}/${post.id}`);
+        }}
+        justifyContent='space-between'
         _hover={{
           background: colorMode == 'dark' ? 'gray.700' : 'gray.50',
         }}
       >
-        <ChakraLink href={post.link}>
-          <Button colorScheme='blue' variant='link' fontSize='xl'>
-            {post.link} <BiLinkExternal className='ml-2' />
-          </Button>
-        </ChakraLink>
-        {post.caption && (
+        <div>
+          <ChakraLink href={post.link}>
+            <Button colorScheme='blue' variant='link' fontSize='xl'>
+              {post.link} <BiLinkExternal className='ml-2' />
+            </Button>
+          </ChakraLink>
+          {post.caption && (
+            <Text mt={5} fontSize='xl' opacity='0.8'>
+              {post.caption}
+            </Text>
+          )}
           <Text mt={5} fontSize='xl' opacity='0.8'>
-            {post.caption}
+            {moment(post.createdAt).fromNow()}
           </Text>
-        )}
-        <Text mt={5} fontSize='xl' opacity='0.8'>
-          {moment(post.createdAt).fromNow()}
-        </Text>
+        </div>
         <Flex mt={5} alignItems='center' justifyContent='space-between'>
           <Link href={`/${post.user.username}`}>
-            <Flex alignItems='center' className='cursor-pointer'>
+            <Flex alignItems='center' className='cursor-pointer group'>
               <Avatar size='lg' src={post.user.profile} name={post.user.name} />
               <div className='ml-2'>
-                <Text fontSize='xl' fontWeight='medium'>
+                <Text
+                  fontSize='xl'
+                  fontWeight='medium'
+                  className='group-hover:underline'
+                >
                   {post.user.name}
                 </Text>
                 <Text fontSize='lg' opacity='0.7'>

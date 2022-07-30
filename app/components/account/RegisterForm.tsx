@@ -124,7 +124,7 @@ export const RegisterForm: React.FC = () => {
           type='text'
           size='lg'
           value={username}
-          onChange={(e) => setUsername(e.target.value.trim())}
+          onChange={(e) => setUsername(e.target.value.trim().toLowerCase())}
           disabled={loading}
           required
         />
