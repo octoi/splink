@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { Avatar, Flex, IconButton, useColorMode } from '@chakra-ui/react';
 import { FiMoon, FiSun } from 'react-icons/fi';
 import { useState as useHookState } from '@hookstate/core';
 import { userStore } from '@/states/user.state';
 import { UserType } from '@/utils/types';
-import { logoutUser } from '@/utils/user.util';
+import { LoggedInUser } from './LoggedInUser';
+import { GuestUser } from './GuestUser';
 
 export const Header: React.FC = () => {
   const { toggleColorMode, colorMode } = useColorMode();
@@ -19,15 +21,20 @@ export const Header: React.FC = () => {
 
   return (
     <Flex justifyContent='space-between' alignItems='center' p={5}>
-      <Avatar src='/splink.svg' border='none' />
-      <IconButton
-        aria-label='toggle theme'
-        icon={colorMode == 'dark' ? <FiSun /> : <FiMoon />}
-        onClick={toggleColorMode}
-        variant='ghost'
-        size='lg'
-      />
-      {userData && <p onClick={logoutUser}>{userData.name}</p>}
+      <Link href='/' passHref>
+        <Avatar src='/splink.svg' border='none' className='cursor-pointer' />
+      </Link>
+      <Flex alignItems='center'>
+        <IconButton
+          aria-label='toggle theme'
+          icon={colorMode == 'dark' ? <FiSun /> : <FiMoon />}
+          onClick={toggleColorMode}
+          variant='outline'
+          size='lg'
+          mr={3}
+        />
+        {userData ? <LoggedInUser userData={userData} /> : <GuestUser />}
+      </Flex>
     </Flex>
   );
 };
