@@ -22,4 +22,15 @@ export interface PostType {
   link: string;
   caption?: string;
   createdAt: string;
+  Comment?: PostComment[];
+}
+
+export interface PostComment {
+  id: number;
+  userId: number;
+  postId: number;
+  user: UserType;
+  post: PostType;
+  comment: string;
+  createdAt: string;
 }
