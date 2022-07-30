@@ -1,5 +1,5 @@
 import { userStore } from '@/states/user.state';
-import { setToken, removeToken } from './session';
+import { setToken, removeToken, getToken } from './session';
 
 export const setUser = (userData: any) => {
   setToken(userData?.token);
@@ -7,9 +7,12 @@ export const setUser = (userData: any) => {
 };
 
 export const logoutUser = () => {
-  const permission = window.confirm('Are you sure ?');
-  if (!permission) return;
-
   removeToken();
   userStore.set(null);
+};
+
+export const getRequestHeader = () => {
+  return {
+    Authorization: 'Bearer ' + getToken(),
+  };
 };
