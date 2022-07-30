@@ -3,4 +3,6 @@ export const Paths = {
   register: '/account/register',
   app: '/',
   settings: '/account/settings',
+  new: '/post/new',
+  post: '/post',
 };

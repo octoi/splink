@@ -40,6 +40,7 @@ export const LoggedInUser: React.FC<Props> = ({ userData }) => {
           <MenuItem onClick={() => router.push(`/${userData.username}`)}>
             Profile
           </MenuItem>
+          <MenuItem onClick={() => router.push(Paths.new)}>New post</MenuItem>
           <MenuItem onClick={() => router.push(Paths.settings)}>
             Settings
           </MenuItem>
