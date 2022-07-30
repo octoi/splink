@@ -31,7 +31,22 @@ export const addNewComment = (data: {
   comment: string;
 }) => {
   return new Promise((resolve, reject) => {
-    prismaClient.comment.create({ data }).then(resolve).catch(reject);
+    prismaClient.comment
+      .create({
+        data,
+        include: {
+          user: {
+            select: {
+              id: true,
+              username: true,
+              name: true,
+              profile: true,
+            },
+          },
+        },
+      })
+      .then(resolve)
+      .catch(reject);
   });
 };
 
