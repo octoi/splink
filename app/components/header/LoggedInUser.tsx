@@ -34,7 +34,7 @@ export const LoggedInUser: React.FC<Props> = ({ userData }) => {
     <>
       <Menu>
         <MenuButton>
-          <Avatar src={userData.profile || ''} />
+          <Avatar src={userData.profile} name={userData.name} />
         </MenuButton>
         <MenuList>
           <MenuItem onClick={() => router.push(`/${userData.username}`)}>
@@ -44,8 +44,10 @@ export const LoggedInUser: React.FC<Props> = ({ userData }) => {
           <MenuItem onClick={() => router.push(Paths.settings)}>
             Settings
           </MenuItem>
-          <MenuItem color='red.400' onClick={onOpen}>
-            Logout
+          <MenuItem onClick={onOpen}>
+            <Button colorScheme='red' variant='link'>
+              Logout
+            </Button>
           </MenuItem>
         </MenuList>
       </Menu>
