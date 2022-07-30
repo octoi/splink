@@ -33,7 +33,16 @@ export const Header: React.FC = () => {
           size='lg'
           mr={3}
         />
-        {userData ? <LoggedInUser userData={userData} /> : <GuestUser />}
+        {userData ? (
+          <LoggedInUser
+            userData={{
+              ...userData,
+              profile: userData.profile || '',
+            }}
+          />
+        ) : (
+          <GuestUser />
+        )}
       </Flex>
     </Flex>
   );
