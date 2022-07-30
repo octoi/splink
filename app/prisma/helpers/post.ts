@@ -74,3 +74,26 @@ export const deletePost = (data: { userId: number; postId: number }) => {
     }
   });
 };
+
+export const loadAllPosts = () => {
+  return new Promise((resolve, reject) => {
+    prismaClient.post
+      .findMany({
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              username: true,
+              profile: true,
+            },
+          },
+        },
+      })
+      .then(resolve)
+      .catch(reject);
+  });
+};

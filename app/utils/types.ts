@@ -13,6 +13,7 @@ export interface UserType {
   bio?: string;
   banner?: string;
   socials?: string; // json data of UserSocial[]
+  Post?: PostType[];
 }
 
 export interface PostType {

@@ -8,6 +8,7 @@ interface Props {
   description?: string;
   image?: string;
   banner?: string;
+  disableHeader?: boolean;
 }
 
 export const Layout: ReactComponent<Props> = ({
@@ -16,6 +17,7 @@ export const Layout: ReactComponent<Props> = ({
   description,
   image,
   banner,
+  disableHeader,
 }) => {
   title = title || 'Splink';
   description = description || 'Copy & share internet 🔗.';
@@ -32,7 +34,7 @@ export const Layout: ReactComponent<Props> = ({
         <meta property='og:image' content={banner ? banner : image} />
         <meta property='og:type' content='website' />
       </Head>
-      <Header />
+      {!disableHeader && <Header />}
       {children}
     </>
   );

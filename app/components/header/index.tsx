@@ -7,8 +7,9 @@ import { userStore } from '@/states/user.state';
 import { UserType } from '@/utils/types';
 import { LoggedInUser } from './LoggedInUser';
 import { GuestUser } from './GuestUser';
+import { ReactComponent } from '@/utils/reactTypes';
 
-export const Header: React.FC = () => {
+export const Header: ReactComponent = ({ children }) => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   const [userData, setUserData] = useState<UserType | null>(null);
@@ -24,6 +25,7 @@ export const Header: React.FC = () => {
       <Link href='/' passHref>
         <Avatar src='/splink.svg' border='none' className='cursor-pointer' />
       </Link>
+      {children}
       <Flex alignItems='center'>
         <IconButton
           aria-label='toggle theme'
