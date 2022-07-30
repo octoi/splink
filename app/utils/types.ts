@@ -1,7 +1,8 @@
 export interface UserSocial {
   title: string;
   link: string;
-  color: string;
+  bgColor: string;
+  textColor: string;
 }
 
 export interface UserType {
@@ -11,5 +12,5 @@ export interface UserType {
   profile: string;
   bio?: string;
   banner?: string;
-  socials?: UserSocial[];
+  socials?: string; // json data of UserSocial[]
 }
