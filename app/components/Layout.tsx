@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import { ReactComponent } from '@/utils/reactTypes';
 import { Header } from './header';
+import { Footer } from './Footer';
 
 interface Props {
   title?: string;
@@ -36,6 +37,7 @@ export const Layout: ReactComponent<Props> = ({
       </Head>
       {!disableHeader && <Header />}
       {children}
+      <Footer />
     </>
   );
 };

@@ -21,12 +21,7 @@ export const Biodata: React.FC<Props> = ({ user }) => {
       <Container mt={5} maxW='container.sm'>
         <div className='relative'>
           <img
-            src={
-              user.banner ||
-              encodeURI(
-                `https://avatars.dicebear.com/api/initials/${user.name}.svg`
-              )
-            }
+            src={user.banner || 'https://i.ibb.co/kmx9MnW/logo-text.png'}
             alt=''
             className='w-full h-52 rounded object-cover'
           />
@@ -37,7 +32,7 @@ export const Biodata: React.FC<Props> = ({ user }) => {
             className='absolute -bottom-14 ml-auto mr-auto left-0 right-0'
           />
         </div>
-        <Heading mt={5} fontSize='3xl'>
+        <Heading mt={12} fontSize='3xl'>
           {user.name}
         </Heading>
         <Text fontSize='xl'>@{user.username}</Text>
