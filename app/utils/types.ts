@@ -14,3 +14,12 @@ export interface UserType {
   banner?: string;
   socials?: string; // json data of UserSocial[]
 }
+
+export interface PostType {
+  id: number;
+  userId: number;
+  user: UserType;
+  link: string;
+  caption?: string;
+  createdAt: string;
+}
