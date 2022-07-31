@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { setUser } from '@/utils/user.util';
+import { getRequestHeader, setUser } from '@/utils/user.util';
 import { UserSocial, UserType } from '@/utils/types';
 import { Biodata } from './Biodata';
 import { OtherData } from './OtherData';
 import { Socials } from './Socials';
 import { Button, Heading, useToast } from '@chakra-ui/react';
-import { getToken } from '@/utils/session';
 
 interface Props {
   userData: UserType;
@@ -51,9 +50,7 @@ export const SettingsForm: React.FC<Props> = ({ userData }) => {
 
     axios
       .post('/api/account/update', requestData, {
-        headers: {
-          Authorization: 'Bearer ' + getToken(),
-        },
+        headers: getRequestHeader(),
       })
       .then((res) => {
         if (res.status === 200) {
