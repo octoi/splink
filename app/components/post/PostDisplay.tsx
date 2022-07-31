@@ -88,10 +88,6 @@ export const PostDisplay: React.FC<Props> = ({
       .catch((err) => {
         toast({
           title: 'Failed to delete post',
-          description:
-            err?.request.status !== 409
-              ? 'Failed to delete post'
-              : JSON.parse(err?.request?.response)?.message,
           isClosable: true,
           status: 'error',
           duration: 3000,
@@ -121,7 +117,7 @@ export const PostDisplay: React.FC<Props> = ({
           background: colorMode == 'dark' ? 'gray.700' : 'gray.50',
         }}
       >
-        <div>
+        <div className='overflow-hidden'>
           <ChakraLink href={post.link}>
             <Button colorScheme='blue' variant='link' fontSize='xl'>
               {post.link} <BiLinkExternal className='ml-2' />

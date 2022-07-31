@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma, PrismaClient } from '@prisma/client';
 
 const prismaClient = new PrismaClient();
 
@@ -65,5 +65,16 @@ export const deleteComment = (data: { userId: number; commentId: number }) => {
     } else {
       reject('Permission denied');
     }
+  });
+};
+
+export const deleteCommentsOfPosts = (postId: number) => {
+  return new Promise((resolve, reject) => {
+    prismaClient.comment
+      .deleteMany({
+        where: { postId },
+      })
+      .then(resolve)
+      .catch(reject);
   });
 };
