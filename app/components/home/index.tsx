@@ -43,7 +43,9 @@ export const HomePageContent: React.FC<Props> = ({ searchQuery }) => {
   return (
     <Container maxW='container.2xl'>
       {loading && <p className='text-xl'>Loading...</p>}
-      {posts.length === 0 && <p className='text-xl'>No posts yet</p>}
+      {!loading && posts.length === 0 && (
+        <p className='text-xl'>No posts yet</p>
+      )}
       <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3'>
         {posts
           .filter(
