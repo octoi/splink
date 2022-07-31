@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import { deleteCommentsOfPosts } from './comment';
 
 const prismaClient = new PrismaClient();
 
@@ -65,9 +66,13 @@ export const deletePost = (data: { userId: number; postId: number }) => {
 
     // check if logged in user is the post author
     if (post.userId == data.userId) {
-      prismaClient.post
-        .delete({ where: { id: data.postId } })
-        .then(resolve)
+      deleteCommentsOfPosts(data.postId)
+        .then(() => {
+          prismaClient.post
+            .delete({ where: { id: data.postId } })
+            .then(resolve)
+            .catch(reject);
+        })
         .catch(reject);
     } else {
       reject('Permission denied');
